@@ -1,0 +1,26 @@
+<div class="container my-3">
+  <div class="row">
+    @for (pkm of pokemon(); track pkm.id) {
+      <div class="col-md-6 col-lg-2">
+        <div class="card p-3 text-center">
+          <span class="fs-6 fw-medium card-title">{{ paraTitleCase(pkm.name) }}</span>
+
+          <div class="d-flex justify-content-center gap-2">
+            @for (tipo of pkm.types; track tipo) {
+              <span class="badge rounded-pill tex-light">
+                {{ paraTitleCase(tipo) }}
+              </span>
+            }
+          </div>
+
+          @if (pkm.sprite) {
+            <img [src]="pkm.sprite" [alt]="pkm.name" />
+          } @else {
+            
+            <p>imagem não disponível</p>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
