@@ -1,2 +1,124 @@
-@use 'bootstrap/scss/bootstrap';
-@use 'bootstrap-icons'
+/* You can add global styles to this file, and also import other style files */
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: #dc3545,
+  $secondary: #3d7eff,
+  $warning: #f6c945,
+  $body-bg: #10141f,
+  $body-color: #f5f7fb,
+  $body-secondary-color: rgba(245, 247, 251, 0.75),
+  $body-secondary-bg: #182033,
+  $body-tertiary-color: rgba(245, 247, 251, 0.55),
+  $body-tertiary-bg: #0b0f18,
+
+  $link-color: #6f9cff,
+  $link-hover-color: #f6c945,
+  $border-color: #303b54,
+  $border-radius: 0.75rem,
+  $border-radius-sm: 0.5rem,
+  $border-radius-lg: 1rem,
+  $enable-shadows: true,
+
+  $font-family-sans-serif: (
+    'Nunito Sans',
+    system-ui,
+    sans-serif,
+  ),
+  $font-family-base: (
+    'Nunito Sans',
+    system-ui,
+    sans-serif,
+  ),
+  $headings-font-family: (
+    'Oxanium',
+    system-ui,
+    sans-serif,
+  ),
+
+  $headings-font-weight: 700,
+  $card-bg: #182033,
+  $card-border-color: rgba(245, 247, 251, 0.12),
+  $card-border-radius: 1rem,
+  $card-box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.28),
+  $navbar-light-color: rgba(245, 247, 251, 0.75),
+  $navbar-light-hover-color: #f6c945,
+  $navbar-light-active-color: #f5f7fb,
+  $navbar-light-brand-color: #f5f7fb,
+  $navbar-light-brand-hover-color: #f6c945
+);
+
+@use 'bootstrap-icons';
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oxanium:wght@200..800&display=swap');
+
+:root {
+  --pokedex-red: #dc3545;
+  --pokedex-red-dark: #a61e2d;
+  --pokedex-blue: #3d7eff;
+  --pokedex-yellow: #f6c945;
+  --pokedex-surface: #182033;
+  --pokedex-surface-raised: #202b42;
+  --pokedex-text: #f5f7fb;
+  --pokedex-text-muted: #aeb8cb;
+  --pokedex-glow: rgba(61, 126, 255, 0.35);
+
+  --pokedex-font-display: 'Oxanium', system-ui, sans-serif;
+  --pokedex-font-body: 'Nunito Sans', system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bs-body-bg);
+
+  background:
+    radial-gradient(circle at 20% 20%, var(--bs-tertiary-bg) 0 2px, transparent 3px),
+    var(--bs-body-bg);
+
+  background-size: 32px 32px;
+}
+
+.navbar.bg-body-tertiary {
+  background-color: var(--pokedex-surface) !important;
+  border-bottom: 1px solid rgba(220, 53, 69, 0.45);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.22);
+}
+
+.navbar-brand {
+  font-family: var(--pokedex-font-display);
+}
+
+.navbar-brand-icon {
+  width: 35px;
+  image-rendering: pixelated;
+}
+
+.navbar .nav-link {
+  color: var(--pokedex-text-muted);
+  font-family: var(--pokedex-font-display);
+}
+
+.navbar .nav-link.active {
+  color: var(--pokedex-text);
+}
+
+.navbar-toggler {
+  border-color: rgba(245, 247, 251, 0.35);
+}
+
+.card {
+  --bs-card-bg: var(--pokedex-surface);
+  min-height: 100%;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.28);
+}
+
+.card img {
+  width: 100%;
+  max-height: 10rem;
+  object-fit: contain;
+  image-rendering: pixelated;
+  user-select: none;
+  filter: drop-shadow(0 0.75rem 0.75rem rgba(0, 0, 0, 0.3));
+}
+
+.card-title {
+  font-family: var(--pokedex-font-display);
+}

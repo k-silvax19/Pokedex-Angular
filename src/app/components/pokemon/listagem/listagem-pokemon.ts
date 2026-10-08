@@ -43,7 +43,6 @@ const TYPE_COLORS: Readonly<Record<string, string>> = {
 };
 
 export function paraTitleCase(texto: string): string {
-  // Este regex (/\b\w/g) varre o texto procurando a primeira letra de cada palavra
   return texto.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase());
 }
 
