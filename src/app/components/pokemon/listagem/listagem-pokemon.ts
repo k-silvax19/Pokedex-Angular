@@ -3,12 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { PokemonService } from '../data/pokemon.service';
 import { Pokemon } from '../pokemon.model';
 import { map } from 'rxjs';
+import { DEFAULT_TYPE_COLOR, obterCorDoTipo, paraTitleCase, PokemonTypeViewModel, TYPE_COLORS } from '../pokemon.util';
 
-interface PokemonTypeViewModel {
-  readonly name: string;
-  readonly displayName: string;
-  readonly color: string;
-}
 
 interface PokemonCardViewModel {
   readonly id: number;
@@ -19,36 +15,6 @@ interface PokemonCardViewModel {
   readonly background: string;
 }
 
-const DEFAULT_TYPE_COLOR = '#6C757D';
-
-const TYPE_COLORS: Readonly<Record<string, string>> = {
-  normal: '#A8A77A',
-  fire: '#EE8130',
-  water: '#6390F0',
-  electric: '#F7D02C',
-  grass: '#7AC74C',
-  ice: '#96D9D6',
-  fighting: '#C22E28',
-  poison: '#A33EA1',
-  ground: '#E2BF65',
-  flying: '#A98FF3',
-  psychic: '#F95587',
-  bug: '#A6B91A',
-  rock: '#B6A136',
-  ghost: '#735797',
-  dragon: '#6F35FC',
-  dark: '#705746',
-  steel: '#B7B7CE',
-  fairy: '#D685AD',
-};
-
-export function paraTitleCase(texto: string): string {
-  return texto.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase());
-}
-
-function obterCorDoTipo(type: string): string {
-  return TYPE_COLORS[type] ?? DEFAULT_TYPE_COLOR;
-}
 
 function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
   const displayName = paraTitleCase(dto.name);
@@ -56,7 +22,7 @@ function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
     name: type,
     displayName: paraTitleCase(type),
     color: obterCorDoTipo(type.toLowerCase()),
-  }));
+}));
 
   const primeiraCor = types[0]?.color ?? DEFAULT_TYPE_COLOR;
   const segundaCor = types[1]?.color ?? primeiraCor;
@@ -74,6 +40,7 @@ function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
 @Component({
   imports: [],
   selector: 'app-listagem-pokemon',
+  styleUrl: './listagem-pokemon.scss',
   templateUrl: './listagem-pokemon.html',
 })
 export class ListagemPokemon {

@@ -1,22 +1,25 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <a class="navbar-brand" href="#">Pokédex</a>
+    <span class="d-flex align-items-center gap-1">
+      <img class="navbar-brand-icon" src="pokeball.png" alt="Imagem de uma Pokébola" />
+      <a class="navbar-brand fw-medium" href="#" (click)="fecharMenu()" >Pokédex</a>
+    </span>
+
     <button
       class="navbar-toggler"
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
       aria-controls="navbarNav"
-      aria-expanded="false"
       aria-label="Toggle navigation"
+      [attr.aria-expanded]="menuAberto()"
+      (click)="altenarMenu()"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" [class.show]="menuAberto()" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         @for (item of itensNavbar; track item.titulo) {
           <li class="nav-item">
-            <a class="nav-link" [href]="item.url">{{item.titulo}}</a>
+            <a class="nav-link" [href]="item.url" (click)="fecharMenu()">{{ item.titulo }}</a>
           </li>
         }
       </ul>
