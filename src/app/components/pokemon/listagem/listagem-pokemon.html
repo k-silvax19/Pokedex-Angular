@@ -1,11 +1,12 @@
 <div class="container py-5">
   <div class="row g-3">
     @for (pkmn of pokemon(); track pkmn.id) {
-      <div class="col-md-6 col-lg-2">
-        <div
-          class="card p-3 text-center"
+      <div class="col-6 col-md-4 col-xl-2">
+        <a
+          class="pokemon-card card p-3 text-center text-decoration-none"
           [style.border]="'2px solid transparent'"
           [style.background]="pkmn.background"
+          [routerLink]="['/pokemon', pkmn.name]"
         >
           <span class="fs-6 fw-medium card-title">{{ pkmn.displayName }}</span>
 
@@ -22,7 +23,7 @@
           } @else {
             <p>Imagem não disponível</p>
           }
-        </div>
+        </a>
       </div>
     }
   </div>

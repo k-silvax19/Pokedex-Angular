@@ -1,3 +1,5 @@
+import { PokemonTypeViewModel } from "./pokemon.model";
+
 export const DEFAULT_TYPE_COLOR = '#6C757D';
 
 export const TYPE_COLORS: Readonly<Record<string, string>> = {
@@ -21,11 +23,6 @@ export const TYPE_COLORS: Readonly<Record<string, string>> = {
   fairy: '#D685AD',
 };
 
-export interface PokemonTypeViewModel {
-  readonly name: string;
-  readonly displayName: string;
-  readonly color: string;
-}
 
 export function paraTitleCase(texto: string): string {
   return texto.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase());

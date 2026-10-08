@@ -4,6 +4,10 @@
   box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.28);
 }
 
+.pokemon-card:hover {
+  transform: translateY(-0.25rem);
+}
+
 .card img {
   width: 100%;
   max-height: 10rem;
@@ -15,4 +19,10 @@
 
 .card-title {
   font-family: var(--pokedex-font-display);
+}
+
+@media (prefers-reduce-motion: reduce) {
+  .pokemon-card {
+    transition: none;
+  }
 }

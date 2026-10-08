@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { PokemonService } from '../data/pokemon.service';
-import { Pokemon } from '../pokemon.model';
+import { Pokemon, PokemonTypeViewModel } from '../pokemon.model';
 import { map } from 'rxjs';
-import { DEFAULT_TYPE_COLOR, obterCorDoTipo, paraTitleCase, PokemonTypeViewModel, TYPE_COLORS } from '../pokemon.util';
+import { DEFAULT_TYPE_COLOR, obterCorDeBackgroundDosTipos, obterCorDoTipo, paraTiposViewModel, paraTitleCase,} from '../pokemon.util';
+import { RouterLink } from '@angular/router';
 
 
 interface PokemonCardViewModel {
   readonly id: number;
+  readonly name: string;
   readonly displayName: string;
   readonly imageUrl: string | null;
   readonly imageAlt: string;
@@ -18,27 +20,22 @@ interface PokemonCardViewModel {
 
 function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
   const displayName = paraTitleCase(dto.name);
-  const types = dto.types.map((type) => ({
-    name: type,
-    displayName: paraTitleCase(type),
-    color: obterCorDoTipo(type.toLowerCase()),
-}));
-
-  const primeiraCor = types[0]?.color ?? DEFAULT_TYPE_COLOR;
-  const segundaCor = types[1]?.color ?? primeiraCor;
+  const types = paraTiposViewModel(dto.types)
+  
 
   return {
     id: dto.id,
+    name: dto.name,
     displayName: displayName,
     imageUrl: dto.sprite,
     imageAlt: `Imagem de ${displayName}`,
     types: types,
-    background: `linear-gradient(var(--bs-card-bg), var(--bs-card-bg)) padding-box, linear-gradient(135deg, ${primeiraCor} 0 50%, ${segundaCor} 50% 100%) border-box`,
+    background: obterCorDeBackgroundDosTipos(types),
   };
 }
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-listagem-pokemon',
   styleUrl: './listagem-pokemon.scss',
   templateUrl: './listagem-pokemon.html',
