@@ -1,8 +1,10 @@
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+
+import { Pokemon, PokemonDetails } from '../pokemon.model';
 import { ObjetoRespostaHttp, PokemonRespostaHttp } from './pokemon.dto';
-import { PokemonDetails, Pokemon } from '../pokemon.model';
 
 export const POKE_API_URL = new InjectionToken<string>('POKE_API_URL');
 
@@ -43,9 +45,17 @@ export class PokemonService {
     );
   }
 
-  buscarPorNome(name: string): Observable<PokemonDetails> {
-    const nomeNormalizado = name.trim().toLowerCase();
-    const urlCompleto = `${this.apiUrl}${nomeNormalizado}`;
-    return this.http.get<PokemonRespostaHttp>(urlCompleto).pipe(map(mapearRespostaDetalhesPokemon));
+  buscarPorNome(nome: string): Observable<PokemonDetails> {
+    const nomeNormalizado = nome.trim().toLowerCase();
+
+    return this.http
+      .get<PokemonRespostaHttp>(`${this.apiUrl}${encodeURIComponent(nomeNormalizado)}`)
+      .pipe(map(mapearRespostaDetalhesPokemon));
+  }
+
+  buscarPorId(id: number): Observable<PokemonDetails> {
+    return this.http
+      .get<PokemonRespostaHttp>(`${this.apiUrl}${id}`)
+      .pipe(map(mapearRespostaDetalhesPokemon));
   }
 }
