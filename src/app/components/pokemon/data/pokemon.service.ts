@@ -11,7 +11,7 @@ function mapearRespostaPokemon(dto: PokemonRespostaHttp): Pokemon {
     id: dto.id,
     name: dto.name,
     types: dto.types.map((item) => item.type.name),
-    sprite: dto.sprites.front_default,
+    spriteUrl: dto.sprites.front_default,
   };
 }
 

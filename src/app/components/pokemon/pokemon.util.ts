@@ -36,8 +36,8 @@ export function paraTiposViewModel(types: readonly string[]): readonly PokemonTy
   }));
 }
 
-export function obterCorDoTipo(tipo: string): string {
-  return TYPE_COLORS[tipo] ?? DEFAULT_TYPE_COLOR;
+export function obterCorDoTipo(tipos: string): string {
+  return TYPE_COLORS[tipos] ?? DEFAULT_TYPE_COLOR;
 }
 
 export function obterCorDeBackgroundDosTipos(tipo: readonly PokemonTypeViewModel[]): string {
