@@ -5,6 +5,7 @@ import { Pokemon, PokemonTypeViewModel } from '../pokemon.model';
 import { map } from 'rxjs';
 import { DEFAULT_TYPE_COLOR, obterCorDeBackgroundDosTipos, obterCorDoTipo, paraTiposViewModel, paraTitleCase,} from '../pokemon.util';
 import { RouterLink } from '@angular/router';
+import { ListagemFavoritos } from '../favoritos/listagem-favoritos';
 
 
 interface PokemonCardViewModel {
@@ -35,7 +36,7 @@ function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
 }
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, ListagemFavoritos],
   selector: 'app-listagem-pokemon',
   styleUrl: './listagem-pokemon.scss',
   templateUrl: './listagem-pokemon.html',

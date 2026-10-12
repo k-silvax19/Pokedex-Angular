@@ -43,6 +43,27 @@
 
           <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
             <h1 class="display-4 mb-0">{{ pokemon.displayName }}</h1>
+
+            <button
+              type="button"
+              class="favorite-button"
+              [class.favorite-button--active]="estaFavoritado()"
+              [attr.aria-pressed]="estaFavoritado()"
+              [attr.aria-label]="
+                estaFavoritado()
+                  ? `Desfavoritar ${pokemon.displayName}`
+                  : `Favoritar ${pokemon.displayName}`
+              "
+              [attr.title]="
+                estaFavoritado()
+                  ? `Desfavoritar ${pokemon.displayName}`
+                  : `Favoritar ${pokemon.displayName}`
+              "
+              (click)="alternarStatusFavorito()"
+            >
+              <i class="bi me-1" [class]="estaFavoritado() ? 'bi-heart-fill' : 'bi-heart'"></i>
+              <span aria-hidden="true">Favorito</span>
+            </button>
           </div>
 
           <div class="row g-3 mb-4">

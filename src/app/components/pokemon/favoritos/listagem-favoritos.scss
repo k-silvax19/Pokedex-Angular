@@ -1,0 +1,76 @@
+.favorites-section {
+  border-bottom: 1px solid rgba(245, 247, 251, 0.08);
+  background: rgba(10, 15, 28, 0.72);
+}
+
+.favorites-title {
+  color: var(--pokedex-text);
+  font-family: var(--pokedex-font-display);
+  letter-spacing: 0.04em;
+}
+
+.favorites-count {
+  color: var(--pokedex-text-muted);
+}
+
+.favorites-list {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem 0.5rem;
+}
+
+.favorite-card {
+  display: flex;
+  flex: 0 0 10.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 5rem;
+  padding: 0.5rem;
+
+  border: 1px solid rgba(61, 126, 255, 0.3);
+  border-radius: 0.75rem;
+  background: var(--pokedex-surface);
+}
+
+.favorite-card__link {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pokedex-text);
+  text-decoration: none;
+}
+
+.favorite-card__link:hover {
+  color: var(--pokedex-yellow);
+}
+
+.favorite-card img,
+.favorite-card__placeholder {
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 3rem;
+}
+
+.favorite-card img {
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.favorite-card__placeholder {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--pokedex-text-muted);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.favorite-card__name {
+  overflow: hidden;
+  font-family: var(--pokedex-font-display);
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

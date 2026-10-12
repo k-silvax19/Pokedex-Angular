@@ -1,0 +1,25 @@
+@if (favoritos().length > 0) {
+  <section class="favorites-section" aria-labelledby="favoritos-title">
+    <div class="container py-3">
+      <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+        <h2 id="favoritos-title" class="favorites-title h5 mb-0">Meus favoritos</h2>
+        <span class="favorites-count small">{{ favoritos().length }} pokémon</span>
+      </div>
+
+      <div class="favorites-list">
+        @for (favorito of favoritos(); track favorito.id) {
+          <article class="favorite-card">
+            <a class="favorite-card__link" [routerLink]="['/pokemon', favorito.name]">
+              @if (favorito.spriteUrl; as sprite) {
+                <img [src]="sprite" [alt]="`Sprite de ${paraTitleCase(favorito.name)}`" />
+              } @else {
+                <span class="favorite-card__placeholder" aria-hidden="true">?</span>
+              }
+              <span class="favorite-card__name">{{ paraTitleCase(favorito.name) }}</span>
+            </a>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+}
