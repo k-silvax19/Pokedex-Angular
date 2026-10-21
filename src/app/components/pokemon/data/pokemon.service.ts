@@ -1,4 +1,4 @@
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { concatMap, EMPTY, expand, forkJoin, map, Observable, scan } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
@@ -36,12 +36,14 @@ export class PokemonService {
 
   listar(): Observable<Pokemon[]> {
     return this.http.get<ObjetoRespostaHttp>(this.apiUrl).pipe(
-      switchMap((obj) => {
+      expand((obj) => obj.next ? this.http.get<ObjetoRespostaHttp>(obj.next) : EMPTY),
+      concatMap((obj) => {
         const requisicoes = obj.results.map((r) => this.http.get<PokemonRespostaHttp>(r.url));
 
         return forkJoin(requisicoes);
       }),
       map((detalhes: PokemonRespostaHttp[]): Pokemon[] => detalhes.map(mapearRespostaPokemon)),
+      scan((pokemon: Pokemon[], pagina: Pokemon[]) => [...pokemon, ...pagina], []),
     );
   }
 
