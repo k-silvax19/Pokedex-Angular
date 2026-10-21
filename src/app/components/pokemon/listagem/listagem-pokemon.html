@@ -1,31 +1,27 @@
-<app-listagem-favoritos />
-
+﻿<app-listagem-favoritos />
 <div class="container py-5">
+  <div aria-live="polite" role="status">
+    @if (resultado().carregando) {
+      <p class="small mt-3 mb-0">Buscando Pokémon…</p>
+    } @else if (resultado().erro) {
+      <p class="small mt-3 mb-0">
+        Não foi possível pesquisar. Confira sua conexão e tente novamente.
+      </p>
+    } @else if (resultado().termo) {
+      <p class="small mt-3 mb-0">
+        @if (resultado().pokemon.length) {
+          Pokémon encontrado! Selecione o card para ver os detalhes.
+        } @else {
+          Nenhum Pokémon encontrado para “{{ resultado().termo }}”. Confira o nome ou número.
+        }
+      </p>
+    }
+  </div>
+
   <div class="row g-3">
-    @for (pkmn of pokemon(); track pkmn.id) {
+    @for (pkmn of pokemonExibidos(); track pkmn.id) {
       <div class="col-6 col-md-4 col-xl-2">
-        <a
-          class="pokemon-card card p-3 text-center text-decoration-none"
-          [style.border]="'2px solid transparent'"
-          [style.background]="pkmn.background"
-          [routerLink]="['/pokemon', pkmn.name]"
-        >
-          <span class="fs-6 fw-medium card-title">{{ pkmn.displayName }}</span>
-
-          <div class="d-flex justify-content-center gap-2">
-            @for (type of pkmn.types; track type.name) {
-              <span class="badge rounded-pill text-light" [style.background-color]="type.color">{{
-                type.displayName
-              }}</span>
-            }
-          </div>
-
-          @if (pkmn.imageUrl) {
-            <img [src]="pkmn.imageUrl" [alt]="pkmn.imageAlt" />
-          } @else {
-            <p>Imagem não disponível</p>
-          }
-        </a>
+        <app-pokemon-card [pokemon]="pkmn" />
       </div>
     }
   </div>

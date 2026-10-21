@@ -17,6 +17,8 @@ export interface TipoPokemonRespostaHttp {
 }
 
 export interface PokemonRespostaHttp {
+  readonly is_default: boolean;
+  readonly species: ResultadoObjetoHttp;
   readonly id: number;
   readonly name: string;
   readonly types: readonly TipoPokemonRespostaHttp[];
@@ -27,12 +29,20 @@ export interface PokemonRespostaHttp {
   readonly cries?: SomPokemonRespostaHttp;
   readonly sprites: {
     readonly front_default: string | null;
+    readonly front_shiny: string | null;
     readonly other?: {
       readonly 'official-artwork'?: {
         readonly front_default: string | null;
+        readonly front_shiny: string | null;
       };
     };
   };
+}
+export interface EspeciePokemonRespostaHttp {
+  readonly varieties: readonly {
+    readonly is_default: boolean;
+    readonly pokemon: ResultadoObjetoHttp;
+  }[];
 }
 export interface SomPokemonRespostaHttp {
   readonly latest: string | null;

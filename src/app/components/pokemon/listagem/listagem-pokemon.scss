@@ -1,3 +1,7 @@
+﻿:host {
+  display: block;
+  height: 100%;
+}
 .card {
   --bs-card-bg: var(--pokedex-surface);
   min-height: 100%;
@@ -21,7 +25,7 @@
   font-family: var(--pokedex-font-display);
 }
 
-@media (prefers-reduce-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .pokemon-card {
     transition: none;
   }

@@ -1,53 +1,20 @@
-import { Component, inject } from '@angular/core';
+﻿import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { PokemonService } from '../data/pokemon.service';
-import { Pokemon, PokemonTypeViewModel } from '../pokemon.model';
-import { map } from 'rxjs';
-import { DEFAULT_TYPE_COLOR, obterCorDeBackgroundDosTipos, obterCorDoTipo, paraTiposViewModel, paraTitleCase,} from '../pokemon.util';
-import { RouterLink } from '@angular/router';
+import { PesquisaPokemonService } from '../data/pesquisa-pokemon.service';
 import { ListagemFavoritos } from '../favoritos/listagem-favoritos';
-
-
-interface PokemonCardViewModel {
-  readonly id: number;
-  readonly name: string;
-  readonly displayName: string;
-  readonly imageUrl: string | null;
-  readonly imageAlt: string;
-  readonly types: readonly PokemonTypeViewModel[];
-  readonly background: string;
-}
-
-
-function paraCardViewModel(dto: Pokemon): PokemonCardViewModel {
-  const displayName = paraTitleCase(dto.name);
-  const types = paraTiposViewModel(dto.types)
-  
-
-  return {
-    id: dto.id,
-    name: dto.name,
-    displayName: displayName,
-    imageUrl: dto.spriteUrl,
-    imageAlt: `Imagem de ${displayName}`,
-    types: types,
-    background: obterCorDeBackgroundDosTipos(types),
-  };
-}
+import { PokemonCard } from './pokemon-card';
 
 @Component({
-  imports: [RouterLink, ListagemFavoritos],
+  imports: [PokemonCard, ListagemFavoritos],
   selector: 'app-listagem-pokemon',
-  styleUrl: './listagem-pokemon.scss',
   templateUrl: './listagem-pokemon.html',
 })
 export class ListagemPokemon {
-  protected readonly pokemonService = inject(PokemonService);
-
-  protected readonly pokemon = toSignal(
-    this.pokemonService.listar().pipe(map((pokemon) => pokemon.map(paraCardViewModel))),
-    {
-      initialValue: [] as PokemonCardViewModel[],
-    },
+  private readonly pokemon = toSignal(inject(PokemonService).listar(), { initialValue: [] });
+  private readonly pesquisa = inject(PesquisaPokemonService);
+  readonly resultado = this.pesquisa.resultado;
+  readonly pokemonExibidos = computed(() =>
+    this.resultado().termo ? this.resultado().pokemon : this.pokemon(),
   );
 }

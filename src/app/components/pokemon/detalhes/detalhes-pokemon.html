@@ -15,14 +15,29 @@
         <div
           class="pokemon-details__visual col-lg-5 d-flex flex-column align-items-center justify-content-center p-4 p-md-5"
         >
-          @if (pokemon.imageUrl; as imageUrl) {
+          @if (imagem(); as imageUrl) {
             <img
               class="pokemon-details__image object-fit-contain"
               [src]="imageUrl"
-              [alt]="pokemon.imageAlt"
+              [alt]="pokemon.imageAlt + (shiny() ? ' shiny' : '')"
             />
           } @else {
             <p class="text-body-secondary">Imagem indisponível</p>
+          }
+
+          <button
+            type="button"
+            class="shiny-toggle mt-4"
+            [class.shiny-toggle--active]="shiny()"
+            [attr.aria-pressed]="shiny()"
+            [disabled]="!atual()?.shinyImageUrl"
+            (click)="shiny.set(!shiny())"
+          >
+            <i class="bi bi-stars" aria-hidden="true"></i>
+            {{ shiny() ? 'Shiny ativado' : 'Ver shiny' }}
+          </button>
+          @if (!atual()?.shinyImageUrl) {
+            <span class="small text-body-secondary mt-2">Shiny indisponível para esta forma</span>
           }
 
           @if (pokemon.audioUrl; as audioUrl) {
@@ -65,6 +80,63 @@
               <span aria-hidden="true">Favorito</span>
             </button>
           </div>
+
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            @for (tipo of pokemon.types; track tipo.name) {
+              <span class="badge rounded-pill" [style.background-color]="tipo.color">{{
+                tipo.displayName
+              }}</span>
+            }
+          </div>
+
+          <section
+            class="pokemon-forms mb-4"
+            aria-labelledby="forms-title"
+            [attr.aria-busy]="formas().carregando"
+          >
+            <div class="pokemon-forms__heading">
+              <i class="bi bi-layers" aria-hidden="true"></i>
+              <div>
+                <h2 id="forms-title" class="h5 mb-1">Formas e transformações</h2>
+                <p class="small mb-0">Explore as diferentes versões deste Pokémon.</p>
+              </div>
+            </div>
+            @if (formas().carregando) {
+              <p class="small mb-0" role="status">Carregando formas…</p>
+            } @else if (formas().erro) {
+              <p class="small" role="status">Não foi possível carregar as formas.</p>
+              <button type="button" class="form-option" (click)="tentarFormas()">
+                Tentar novamente
+              </button>
+            } @else {
+              <div
+                class="pokemon-forms__options"
+                role="group"
+                aria-label="Escolha a forma do Pokémon"
+              >
+                @for (forma of formas().opcoes; track forma.id) {
+                  <button
+                    type="button"
+                    class="form-option"
+                    [class.form-option--active]="forma.id === pokemon.id"
+                    [attr.aria-pressed]="forma.id === pokemon.id"
+                    (click)="selecionarForma(forma)"
+                  >
+                    @if (forma.spriteUrl; as sprite) {
+                      <img [src]="sprite" alt="" loading="lazy" />
+                    }
+                    <span>{{ nomeForma(forma) }}</span>
+                    @if (forma.id === pokemon.id) {
+                      <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                    }
+                  </button>
+                }
+              </div>
+              @if (formas().opcoes.length === 1) {
+                <p class="small mt-3 mb-0">Este Pokémon não possui outras formas disponíveis.</p>
+              }
+            }
+          </section>
 
           <div class="row g-3 mb-4">
             <div class="col-sm-6">

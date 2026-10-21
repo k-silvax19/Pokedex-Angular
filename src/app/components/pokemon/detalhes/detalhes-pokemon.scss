@@ -170,3 +170,82 @@
     max-height: 18rem;
   }
 }
+.pokemon-forms {
+  padding: 1.1rem;
+  border: 1px solid rgba(61, 126, 255, 0.25);
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(61, 126, 255, 0.1), rgba(61, 126, 255, 0.02));
+}
+.pokemon-forms__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.pokemon-forms__heading > i {
+  color: var(--pokedex-yellow);
+  font-size: 1.4rem;
+}
+.pokemon-forms p {
+  color: var(--pokedex-text-muted);
+}
+.pokemon-forms__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.65rem;
+}
+.form-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid rgba(245, 247, 251, 0.15);
+  border-radius: 0.75rem;
+  background: var(--pokedex-surface);
+  color: var(--pokedex-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.form-option img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+.form-option:hover {
+  border-color: var(--pokedex-blue);
+}
+.form-option--active {
+  border-color: var(--pokedex-yellow);
+  background: rgba(246, 201, 69, 0.1);
+}
+.form-option--active > i {
+  color: var(--pokedex-yellow);
+}
+.shiny-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid rgba(246, 201, 69, 0.55);
+  border-radius: 999px;
+  background: rgba(246, 201, 69, 0.08);
+  color: var(--pokedex-yellow);
+  font-weight: 600;
+}
+.shiny-toggle:hover:not(:disabled),
+.shiny-toggle--active {
+  background: var(--pokedex-yellow);
+  color: #182034;
+  box-shadow: 0 0 1.5rem rgba(246, 201, 69, 0.15);
+}
+.shiny-toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.form-option:focus-visible,
+.shiny-toggle:focus-visible {
+  outline: 3px solid var(--pokedex-blue);
+  outline-offset: 3px;
+}

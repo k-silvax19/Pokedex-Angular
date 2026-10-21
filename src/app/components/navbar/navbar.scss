@@ -25,3 +25,45 @@
 .navbar-toggler {
   border-color: rgba(245, 247, 251, 0.35);
 }
+.pokemon-search__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pokemon-search__input {
+  position: relative;
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+.pokemon-search__input i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--pokedex-text-muted);
+  pointer-events: none;
+}
+.pokemon-search__input input {
+  padding-left: 2.75rem;
+  min-height: 2.75rem;
+}
+@media (max-width: 575.98px) {
+  .pokemon-search__input {
+    flex-basis: 100%;
+  }
+  .pokemon-search__form button {
+    flex: 1;
+  }
+}
+
+.pokemon-search__form {
+  flex: 1;
+  margin-left: auto;
+  max-width: 42rem;
+}
+@media (max-width: 991.98px) {
+  .pokemon-search__form {
+    margin-top: 1rem;
+    max-width: none;
+  }
+}

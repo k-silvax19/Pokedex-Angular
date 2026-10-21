@@ -3,6 +3,8 @@ export interface Pokemon {
   name: string;
   types: string[];
   spriteUrl: string | null;
+  shinySpriteUrl: string | null;
+  speciesUrl: string;
 }
 
 export interface PokemonStat {
@@ -11,6 +13,7 @@ export interface PokemonStat {
 }
 
 export interface PokemonDetails extends Pokemon {
+  readonly shinyImageUrl: string | null;
   readonly imageUrl: string | null;
   readonly audioUrl: string | null;
   readonly height: number;

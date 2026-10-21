@@ -1,0 +1,20 @@
+﻿<a
+  class="pokemon-card card p-3 text-center text-decoration-none"
+  [style.border]="'2px solid transparent'"
+  [style.background]="background()"
+  [routerLink]="['/pokemon', pokemon().name]"
+>
+  <span class="fs-6 fw-medium card-title">{{ nome() }}</span>
+  <div class="d-flex justify-content-center flex-wrap gap-2">
+    @for (tipo of tipos(); track tipo.name) {
+      <span class="badge rounded-pill text-light" [style.background-color]="tipo.color">{{
+        tipo.displayName
+      }}</span>
+    }
+  </div>
+  @if (pokemon().spriteUrl; as url) {
+    <img [src]="url" [alt]="'Imagem de ' + nome()" loading="lazy" />
+  } @else {
+    <p>Imagem não disponível</p>
+  }
+</a>

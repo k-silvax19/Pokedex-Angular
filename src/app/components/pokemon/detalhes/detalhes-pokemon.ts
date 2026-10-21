@@ -1,7 +1,7 @@
-import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, startWith, switchMap } from 'rxjs';
 
-import { Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { PokemonService } from '../data/pokemon.service';
@@ -101,7 +101,9 @@ function paraDetalhesViewModel(
   previous: PokemonDetails | null,
   next: PokemonDetails | null,
 ): PokemonDetailsViewModel {
-  const displayName = paraTitleCase(dto.name);
+  const displayName = paraTitleCase(
+    dto.name.replace(/-gmax\b/g, '-gigantamax').replaceAll('-', ' '),
+  );
   const types = paraTiposViewModel(dto.types);
 
   return {
@@ -141,7 +143,7 @@ export class DetalhesPokemon {
   private readonly pokemonService = inject(PokemonService);
   private readonly favoritosService = inject(FavoritosService);
 
-  protected readonly pokemon = toSignal(
+  private readonly dados = toSignal(
     this.route.paramMap.pipe(
       map((params) => params.get('name') ?? ''),
       switchMap((nome) => this.pokemonService.buscarPorNome(nome)),
@@ -152,9 +154,69 @@ export class DetalhesPokemon {
           next: this.buscarVizinho(pokemon.id + 1),
         }),
       ),
-      map(({ pokemon, previous, next }) => paraDetalhesViewModel(pokemon, previous, next)),
     ),
   );
+
+  readonly selecionado = signal<PokemonDetails | null>(null);
+  readonly shiny = signal(false);
+  private readonly tentativa = signal(0);
+  private readonly pedidoFormas = computed(() => ({
+    base: this.dados()?.pokemon,
+    tentativa: this.tentativa(),
+  }));
+  readonly formas = toSignal(
+    toObservable(this.pedidoFormas).pipe(
+      switchMap(({ base }) =>
+        base
+          ? this.pokemonService.listarFormas(base).pipe(
+              map((opcoes) => ({ opcoes, carregando: false, erro: false })),
+              startWith({ opcoes: [] as PokemonDetails[], carregando: true, erro: false }),
+              catchError(() =>
+                of({ opcoes: [] as PokemonDetails[], carregando: false, erro: true }),
+              ),
+            )
+          : of({ opcoes: [] as PokemonDetails[], carregando: true, erro: false }),
+      ),
+    ),
+    { initialValue: { opcoes: [] as PokemonDetails[], carregando: true, erro: false } },
+  );
+  readonly atual = computed(() => this.selecionado() ?? this.dados()?.pokemon);
+  readonly pokemon = computed(() => {
+    const dados = this.dados();
+    const atual = this.atual();
+    return dados && atual ? paraDetalhesViewModel(atual, dados.previous, dados.next) : undefined;
+  });
+  readonly imagem = computed(() =>
+    this.shiny() ? this.atual()?.shinyImageUrl : this.atual()?.imageUrl,
+  );
+
+  constructor() {
+    effect(() => {
+      this.dados();
+      this.selecionado.set(null);
+      this.shiny.set(false);
+    });
+  }
+
+  nomeForma(forma: PokemonDetails): string {
+    const base = this.formas().opcoes[0];
+    if (base?.name === forma.name) return 'Original';
+    const prefixo = base?.name.split('-')[0];
+    const nome =
+      prefixo && forma.name.startsWith(prefixo + '-')
+        ? forma.name.slice(prefixo.length + 1)
+        : forma.name;
+    return paraTitleCase(nome.replace(/gmax\b/g, 'gigantamax').replaceAll('-', ' '));
+  }
+
+  selecionarForma(forma: PokemonDetails): void {
+    this.selecionado.set(forma);
+    if (!forma.shinyImageUrl) this.shiny.set(false);
+  }
+
+  tentarFormas(): void {
+    this.tentativa.update((valor) => valor + 1);
+  }
 
   readonly estaFavoritado = computed(() =>
     this.pokemon() ? this.favoritosService.estaComoFavorito(this.pokemon()!.id) : false,
