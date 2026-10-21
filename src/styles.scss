@@ -1,79 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+﻿/* You can add global styles to this file, and also import other style files */
 @use 'bootstrap/scss/bootstrap' with (
   $primary: #dc3545,
   $secondary: #3d7eff,
-  $warning: #f6c945,
-  $body-bg: #10141f,
+  $warning: #f6c745,
+  $body-bg: #121212,
   $body-color: #f5f7fb,
   $body-secondary-color: rgba(245, 247, 251, 0.75),
-  $body-secondary-bg: #182033,
+  $body-secondary-bg: #2a2a35,
   $body-tertiary-color: rgba(245, 247, 251, 0.55),
-  $body-tertiary-bg: #0b0f18,
+  $body-tertiary-bg: #1a1a20,
 
   $link-color: #6f9cff,
-  $link-hover-color: #f6c945,
-  $border-color: #303b54,
+  $link-hover-color: #f6c745,
+  $border-color: #3a3a45,
   $border-radius: 0.75rem,
   $border-radius-sm: 0.5rem,
   $border-radius-lg: 1rem,
   $enable-shadows: true,
 
   $font-family-sans-serif: (
-    'Nunito Sans',
+    'Poppins',
     system-ui,
     sans-serif,
   ),
   $font-family-base: (
-    'Nunito Sans',
+    'Poppins',
     system-ui,
     sans-serif,
   ),
   $headings-font-family: (
-    'Oxanium',
+    'Poppins',
     system-ui,
     sans-serif,
   ),
 
   $headings-font-weight: 700,
-  $card-bg: #182033,
+  $card-bg: #2a2a35,
   $card-border-color: rgba(245, 247, 251, 0.12),
   $card-border-radius: 1rem,
   $card-box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.28),
   $navbar-light-color: rgba(245, 247, 251, 0.75),
-  $navbar-light-hover-color: #f6c945,
+  $navbar-light-hover-color: #f6c745,
   $navbar-light-active-color: #f5f7fb,
   $navbar-light-brand-color: #f5f7fb,
-  $navbar-light-brand-hover-color: #f6c945
+  $navbar-light-brand-hover-color: #f6c745
 );
 
 @use 'bootstrap-icons';
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oxanium:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
   --pokedex-red: #dc3545;
   --pokedex-red-dark: #a61e2d;
   --pokedex-blue: #3d7eff;
-  --pokedex-yellow: #f6c945;
-  --pokedex-surface: #182033;
-  --pokedex-surface-raised: #202b42;
+  --pokedex-yellow: #f6c745;
+  --pokedex-surface: #2a2a35;
+  --pokedex-surface-raised: #1e1e24;
   --pokedex-text: #f5f7fb;
-  --pokedex-text-muted: #aeb8cb;
+  --pokedex-text-muted: #a1a1af;
   --pokedex-glow: rgba(61, 126, 255, 0.35);
 
-  --pokedex-font-display: 'Oxanium', system-ui, sans-serif;
-  --pokedex-font-body: 'Nunito Sans', system-ui, sans-serif;
+  --pokedex-font-display: 'Poppins', system-ui, sans-serif;
+  --pokedex-font-body: 'Poppins', system-ui, sans-serif;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--bs-body-bg);
-
-  background:
-    radial-gradient(circle at 20% 20%, var(--bs-tertiary-bg) 0 2px, transparent 3px),
-    var(--bs-body-bg);
-
-  background-size: 32px 32px;
+  background: #121212;
 }
-
-

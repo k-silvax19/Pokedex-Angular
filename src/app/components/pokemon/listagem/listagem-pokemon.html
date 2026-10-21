@@ -1,14 +1,14 @@
 ﻿<app-listagem-favoritos />
-<div class="container py-5">
+<main class="pokemon-catalog">
   <div aria-live="polite" role="status">
     @if (resultado().carregando) {
-      <p class="small mt-3 mb-0">Buscando Pokémon…</p>
+      <p class="search-status">Buscando Pokémon…</p>
     } @else if (resultado().erro) {
-      <p class="small mt-3 mb-0">
+      <p class="search-status">
         Não foi possível pesquisar. Confira sua conexão e tente novamente.
       </p>
     } @else if (resultado().termo) {
-      <p class="small mt-3 mb-0">
+      <p class="search-status">
         @if (resultado().pokemon.length) {
           Pokémon encontrado! Selecione o card para ver os detalhes.
         } @else {
@@ -18,11 +18,19 @@
     }
   </div>
 
-  <div class="row g-3">
+  @if (!resultado().termo && catalogo().carregando) {
+    <div class="catalog-loading" role="status">
+      <span class="catalog-spinner" aria-hidden="true"></span>
+      <p>Buscando Pokémon…</p>
+    </div>
+  } @else if (!resultado().termo && catalogo().erro) {
+    <p class="search-status" role="alert">
+      Não foi possível carregar a Pokédex. Tente recarregar a página.
+    </p>
+  }
+  <div class="pokemon-grid">
     @for (pkmn of pokemonExibidos(); track pkmn.id) {
-      <div class="col-6 col-md-4 col-xl-2">
-        <app-pokemon-card [pokemon]="pkmn" />
-      </div>
+      <app-pokemon-card [pokemon]="pkmn" />
     }
   </div>
-</div>
+</main>

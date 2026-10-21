@@ -1,28 +1,27 @@
-import { PokemonTypeViewModel } from "./pokemon.model";
+﻿import { PokemonTypeViewModel } from './pokemon.model';
 
 export const DEFAULT_TYPE_COLOR = '#6C757D';
 
 export const TYPE_COLORS: Readonly<Record<string, string>> = {
-  normal: '#A8A77A',
-  fire: '#EE8130',
-  water: '#6390F0',
-  electric: '#F7D02C',
-  grass: '#7AC74C',
-  ice: '#96D9D6',
-  fighting: '#C22E28',
-  poison: '#A33EA1',
-  ground: '#E2BF65',
-  flying: '#A98FF3',
-  psychic: '#F95587',
-  bug: '#A6B91A',
-  rock: '#B6A136',
-  ghost: '#735797',
-  dragon: '#6F35FC',
-  dark: '#705746',
-  steel: '#B7B7CE',
-  fairy: '#D685AD',
+  normal: '#9CA3AF',
+  fire: '#FF6B6B',
+  water: '#4DABF7',
+  electric: '#FCC419',
+  grass: '#51CF66',
+  ice: '#99E9F2',
+  fighting: '#FA5252',
+  poison: '#CC5DE8',
+  ground: '#EAA636',
+  flying: '#84A59D',
+  psychic: '#FF92A5',
+  bug: '#94D82D',
+  rock: '#B0A383',
+  ghost: '#845EF7',
+  dragon: '#5C7CFA',
+  dark: '#858995',
+  steel: '#ADB5BD',
+  fairy: '#FFB8D2',
 };
-
 
 export function paraTitleCase(texto: string): string {
   return texto.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase());

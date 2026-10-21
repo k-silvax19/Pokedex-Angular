@@ -1,51 +1,42 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container">
-    <span class="d-flex align-items-center gap-1">
-      <img class="navbar-brand-icon" src="pokeball.png" alt="Imagem de uma Pokébola" />
-      <a class="navbar-brand fw-medium" routerLink="/pokemon" (click)="fecharMenu()">Pokédex</a>
-    </span>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="navbarNav"
-      aria-label="Abrir ou fechar navegação"
-      [attr.aria-expanded]="menuAberto()"
-      (click)="altenarMenu()"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" [class.show]="menuAberto()" id="navbarNav">
-      <form class="pokemon-search__form" role="search" (ngSubmit)="pesquisar()">
-        <label class="visually-hidden" for="pokemon-search">Nome ou número do Pokémon</label>
-        <div class="pokemon-search__input">
-          <i class="bi bi-search" aria-hidden="true"></i>
-          <input
-            id="pokemon-search"
-            name="pokemon"
-            type="search"
-            class="form-control"
-            placeholder="Nome ou número do Pokémon"
-            aria-label="Nome completo ou número do Pokémon"
-            autocomplete="off"
-            [ngModel]="pesquisa.textoPesquisa()"
-            (ngModelChange)="pesquisa.textoPesquisa.set($event)"
-          />
-        </div>
-        <button type="submit" class="btn btn-warning fw-semibold">Pesquisar</button>
-        @if (pesquisa.resultado().termo || pesquisa.textoPesquisa()) {
-          <button type="button" class="btn btn-outline-secondary" (click)="limparPesquisa()">
-            Limpar
-          </button>
-        }
-      </form>
-      <ul class="navbar-nav ms-lg-3">
-        @for (item of itensNavbar; track item.titulo) {
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="item.url" (click)="fecharMenu()">{{ item.titulo }}</a>
-          </li>
-        }
-      </ul>
-    </div>
+﻿<nav class="navbar" aria-label="Navegação principal">
+  <div class="navbar-layout">
+    <a class="navbar-brand" routerLink="/pokemon" (click)="fecharMenu()">
+      <svg viewBox="0 0 100 100" class="navbar-brand-icon" aria-hidden="true">
+        <circle cx="50" cy="50" r="45" fill="white" stroke="#121212" stroke-width="4" />
+        <path d="M5 50 A45 45 0 0 1 95 50Z" fill="#e3350d" stroke="#121212" stroke-width="4" />
+        <path d="M5 50h31M64 50h31" stroke="#121212" stroke-width="4" />
+        <circle cx="50" cy="50" r="14" fill="white" stroke="#121212" stroke-width="4" />
+        <circle cx="50" cy="50" r="5" fill="#121212" />
+      </svg>
+      <span>Pokédex</span>
+    </a>
+    <form class="pokemon-search__form" role="search" (ngSubmit)="pesquisar()">
+      <label class="visually-hidden" for="pokemon-search">Nome completo ou número do Pokémon</label>
+      <div class="pokemon-search__input">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input
+          id="pokemon-search"
+          name="pokemon"
+          type="search"
+          placeholder="Pesquise por nome ou número…"
+          autocomplete="off"
+          [ngModel]="pesquisa.textoPesquisa()"
+          (ngModelChange)="pesquisa.textoPesquisa.set($event)"
+        />
+      </div>
+      <button type="submit" class="search-button">Pesquisar</button>
+      @if (pesquisa.resultado().termo || pesquisa.textoPesquisa()) {
+        <button
+          type="button"
+          class="clear-button"
+          (click)="limparPesquisa()"
+          aria-label="Limpar pesquisa"
+          title="Limpar pesquisa"
+        >
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      }
+    </form>
+    <a class="navbar-home" routerLink="/pokemon" (click)="fecharMenu()">Início</a>
   </div>
 </nav>

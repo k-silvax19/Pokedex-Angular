@@ -3,6 +3,7 @@ export interface Pokemon {
   name: string;
   types: string[];
   spriteUrl: string | null;
+  artworkUrl?: string | null;
   shinySpriteUrl: string | null;
   speciesUrl: string;
 }

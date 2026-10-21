@@ -29,6 +29,7 @@ function mapearRespostaPokemon(dto: PokemonRespostaHttp): Pokemon {
     shinySpriteUrl:
       dto.sprites.front_shiny ?? dto.sprites.other?.['official-artwork']?.front_shiny ?? null,
     speciesUrl: dto.species.url,
+    artworkUrl: dto.sprites.other?.['official-artwork']?.front_default ?? dto.sprites.front_default,
   };
 }
 
