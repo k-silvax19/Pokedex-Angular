@@ -5,8 +5,8 @@
 }
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr));
+  gap: 1rem;
 }
 .search-status {
   margin: 0 0 1.5rem;

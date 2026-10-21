@@ -8,9 +8,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 280px;
+  min-height: 230px;
   overflow: hidden;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   border-top: 4px solid var(--type-color);
   background: #2a2a35;
@@ -38,14 +38,14 @@
   z-index: 1;
 }
 .pokemon-card h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   margin: 0;
   overflow-wrap: anywhere;
 }
 .pokemon-card__number {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: #858590;
   white-space: nowrap;
 }
@@ -56,7 +56,7 @@
   margin-top: 0.65rem;
 }
 .pokemon-card__types span {
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 600;
@@ -69,8 +69,8 @@
   display: grid;
   place-items: center;
   flex: 1;
-  margin-top: 1rem;
-  min-height: 10rem;
+  margin-top: 0.75rem;
+  min-height: 8rem;
 }
 .pokemon-card__visual::before {
   content: '';
@@ -83,8 +83,8 @@
 }
 .card-image {
   position: relative;
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   object-fit: contain;
   filter: drop-shadow(0 12px 12px #0006);
   transition: transform 500ms ease;
@@ -96,8 +96,8 @@
   position: absolute;
   bottom: -1rem;
   right: -1rem;
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   transform: rotate(-12deg);
   fill: none;
   stroke: #ffffff0d;
